@@ -22,9 +22,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')")
-                .and().formLogin().defaultSuccessUrl("/", false);
+                .anyRequest().authenticated()
+                //.antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
+                //.antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')")
+                .and().formLogin()
+                //.defaultSuccessUrl("/", false);
+                .loginPage("/login")
+                .permitAll();
 
     }
 }
